@@ -77,7 +77,14 @@ void FactionInfo::setFriendly(P<FactionInfo> other)
 
 EFactionVsFactionState FactionInfo::getStateById(unsigned int faction_id)
 {
-    return states[faction_id];
+    // when state is replicated from server to client there is a small
+    // window where it is possible for faction_id to refer to factions
+    // which the state has not replicated from the network
+    if (faction_id<states.size())
+    {
+        return states[faction_id];
+    }
+    return FVF_Neutral;
 }
 
 unsigned int FactionInfo::findFactionId(string name)
