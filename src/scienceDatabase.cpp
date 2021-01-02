@@ -291,7 +291,7 @@ void fillDefaultDatabaseData()
             if (n == m) continue;
 
             string stance = tr("stance", "Neutral");
-            switch(factionInfo[n]->states[m])
+            switch(factionInfo[n]->getStateById(m))
             {
                 case FVF_Neutral: stance = tr("stance", "Neutral"); break;
                 case FVF_Enemy: stance = tr("stance", "Enemy"); break;

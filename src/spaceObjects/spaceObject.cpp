@@ -457,7 +457,7 @@ bool SpaceObject::isEnemy(P<SpaceObject> obj)
 {
     if (obj)
     {
-        return factionInfo[faction_id]->states[obj->faction_id] == FVF_Enemy;
+        return factionInfo[faction_id]->getStateById(obj->faction_id) == FVF_Enemy;
     } else {
         return false;
     }
@@ -467,7 +467,7 @@ bool SpaceObject::isFriendly(P<SpaceObject> obj)
 {
     if (obj)
     {
-        return factionInfo[faction_id]->states[obj->faction_id] == FVF_Friendly;
+        return factionInfo[faction_id]->getStateById(obj->faction_id) == FVF_Friendly;
     } else {
         return false;
     }

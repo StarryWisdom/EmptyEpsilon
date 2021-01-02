@@ -21,8 +21,6 @@ public:
 
     sf::Color gm_color;
 
-    std::vector<EFactionVsFactionState> states;
-
     /*!
      * \brief Set name of faction.
      * \param Name Name of the faction
@@ -58,6 +56,7 @@ public:
      * \brief Add another faction that this faction sees as an enemy.
      * \param faction info object.
      */
+    EFactionVsFactionState getStateById(unsigned int faction_id);
     void setEnemy(P<FactionInfo> other);
     /*!
      * \brief Add another faction that this faction sees as a friendly.
@@ -72,6 +71,8 @@ public:
 
     static unsigned int findFactionId(string name);
 protected:
+    std::vector<EFactionVsFactionState> states;
+
     string name;
     string locale_name;
     string description;

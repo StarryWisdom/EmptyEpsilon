@@ -118,7 +118,7 @@ void GuiIndicatorOverlays::onDraw(sf::RenderTarget& window)
             EFactionVsFactionState fvf_state = FVF_Neutral;
             if (my_spaceship)
             {
-                fvf_state = factionInfo[gameGlobalInfo->getVictoryFactionId()]->states[my_spaceship->getFactionId()];
+                fvf_state = factionInfo[gameGlobalInfo->getVictoryFactionId()]->getStateById(my_spaceship->getFactionId());
             }
             switch(fvf_state)
             {

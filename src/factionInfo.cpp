@@ -75,6 +75,11 @@ void FactionInfo::setFriendly(P<FactionInfo> other)
     }
 }
 
+EFactionVsFactionState FactionInfo::getStateById(unsigned int faction_id)
+{
+    return states[faction_id];
+}
+
 unsigned int FactionInfo::findFactionId(string name)
 {
     for(unsigned int n = 0; n < factionInfo.size(); n++)
