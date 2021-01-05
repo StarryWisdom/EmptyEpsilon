@@ -69,6 +69,8 @@ public:
      */
     void reset();
 
+    static P<FactionInfo> getFactionById(unsigned int faction_id);
+
     static unsigned int findFactionId(string name);
 protected:
     std::vector<EFactionVsFactionState> states;

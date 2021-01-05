@@ -75,6 +75,15 @@ void FactionInfo::setFriendly(P<FactionInfo> other)
     }
 }
 
+P<FactionInfo> FactionInfo::getFactionById(unsigned int faction_id)
+{
+    if (faction_id<factionInfo.size())
+    {
+        return factionInfo[faction_id];
+    }
+    return nullptr;
+}
+
 EFactionVsFactionState FactionInfo::getStateById(unsigned int faction_id)
 {
     // when state is replicated from server to client there is a small

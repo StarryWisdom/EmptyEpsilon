@@ -457,7 +457,7 @@ bool SpaceObject::isEnemy(P<SpaceObject> obj)
 {
     if (obj)
     {
-        return factionInfo[faction_id]->getStateById(obj->faction_id) == FVF_Enemy;
+        return getFactionStateToFactionId(obj->faction_id) == FVF_Enemy;
     } else {
         return false;
     }
@@ -467,10 +467,40 @@ bool SpaceObject::isFriendly(P<SpaceObject> obj)
 {
     if (obj)
     {
-        return factionInfo[faction_id]->getStateById(obj->faction_id) == FVF_Friendly;
+        return getFactionStateToFactionId(obj->faction_id) == FVF_Friendly;
     } else {
         return false;
     }
+}
+
+string SpaceObject::getFaction()
+{
+    auto faction = FactionInfo::getFactionById(this->faction_id);
+    if (faction)
+    {
+        return faction->getName();
+    }
+    return "";
+}
+
+string SpaceObject::getLocaleFaction()
+{
+    auto faction = FactionInfo::getFactionById(this->faction_id);
+    if (faction)
+    {
+        return faction->getLocaleName();
+    }
+    return "";
+}
+
+EFactionVsFactionState SpaceObject::getFactionStateToFactionId(unsigned int faction_id)
+{
+    auto faction = FactionInfo::getFactionById(this->faction_id);
+    if (faction)
+    {
+        return faction->getStateById(faction_id);
+    }
+    return FVF_Neutral;
 }
 
 void SpaceObject::damageArea(sf::Vector2f position, float blast_range, float min_damage, float max_damage, DamageInfo info, float min_range)

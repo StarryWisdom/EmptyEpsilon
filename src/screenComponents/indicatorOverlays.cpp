@@ -118,7 +118,7 @@ void GuiIndicatorOverlays::onDraw(sf::RenderTarget& window)
             EFactionVsFactionState fvf_state = FVF_Neutral;
             if (my_spaceship)
             {
-                fvf_state = factionInfo[gameGlobalInfo->getVictoryFactionId()]->getStateById(my_spaceship->getFactionId());
+                fvf_state = my_spaceship->getFactionStateToFactionId(gameGlobalInfo->getVictoryFactionId());
             }
             switch(fvf_state)
             {
@@ -129,7 +129,13 @@ void GuiIndicatorOverlays::onDraw(sf::RenderTarget& window)
                 victory_label->setText("Victory!");
                 break;
             case FVF_Neutral:
-                victory_label->setText(tr("{faction} wins").format({{"faction", factionInfo[gameGlobalInfo->getVictoryFactionId()]->getLocaleName()}}));
+                string faction_name;
+                auto faction = FactionInfo::getFactionById(gameGlobalInfo->getVictoryFactionId());
+                if (faction)
+                {
+                    faction_name = faction->getLocaleName();
+                }
+                victory_label->setText(tr("{faction} wins").format({{"faction", faction_name}}));
                 break;
             }
         }

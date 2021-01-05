@@ -49,7 +49,15 @@ void SpaceStation::drawOnRadar(sf::RenderTarget& window, sf::Vector2f position, 
         else
             objectSprite.setColor(sf::Color(128, 128, 255));
     }else{
-        objectSprite.setColor(factionInfo[getFactionId()]->gm_color);
+        auto faction = FactionInfo::getFactionById(getFactionId());
+        if (faction)
+        {
+            objectSprite.setColor(faction->gm_color);
+        }
+        else
+        {
+            objectSprite.setColor(sf::Color(192, 192, 192));
+        }
     }
     window.draw(objectSprite);
 }
