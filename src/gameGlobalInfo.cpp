@@ -158,6 +158,8 @@ void GameGlobalInfo::reset()
     gm_messages.clear();
     on_gm_click = nullptr;
 
+    FactionInfo::reset();
+
     foreach(GameEntity, e, entityList)
         e->destroy();
     foreach(SpaceObject, o, space_object_list)
@@ -184,6 +186,10 @@ void GameGlobalInfo::startScenario(string filename)
     i18n::reset();
     i18n::load("locale/" + PreferencesManager::get("language", "en") + ".po");
     i18n::load("locale/" + filename.replace(".lua", "." + PreferencesManager::get("language", "en") + ".po"));
+
+    P<ScriptObject> factionInfoScript = new ScriptObject("factionInfo.lua");
+    if (factionInfoScript->getError() != "") exit(1);
+    factionInfoScript->destroy();
 
     flushDatabaseData();
     fillDefaultDatabaseData();

@@ -4,7 +4,7 @@
 #include "engine.h"
 
 class FactionInfo;
-extern PVector<FactionInfo> factionInfo;
+extern std::vector<P<FactionInfo>> factionInfo;
 
 enum EFactionVsFactionState
 {
@@ -13,7 +13,9 @@ enum EFactionVsFactionState
     FVF_Enemy
 };
 
-class FactionInfo : public PObject
+REGISTER_MULTIPLAYER_ENUM(EFactionVsFactionState);
+
+class FactionInfo : public Updatable, public MultiplayerObject
 {
 private:
 public:
@@ -63,11 +65,8 @@ public:
      * \param faction info object.
      */
     void setFriendly(P<FactionInfo> other);
-    /*!
-     * \brief Reset the data.
-     * \todo Implement this.
-     */
-    void reset();
+    static void reset();
+    virtual void update(float delta) override;
 
     static P<FactionInfo> getFactionById(unsigned int faction_id);
 
@@ -75,9 +74,11 @@ public:
 protected:
     std::vector<EFactionVsFactionState> states;
 
+    unsigned int index;
     string name;
     string locale_name;
     string description;
+    static unsigned int next_index;
 };
 
 #endif//FACTION_INFO_H
